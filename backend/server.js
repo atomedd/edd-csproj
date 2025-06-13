@@ -19,8 +19,8 @@ const User = mongoose.model('User', userSchema);
 
 // Mongo LINK
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+  .then(() => console.log('Database connected'))
+  .catch((err) => console.error('Database connection error:', err));
 
 // Routes
 
@@ -74,7 +74,7 @@ app.delete('/users/:id', async (req, res) => {
 
     if (!deletedUser) return res.status(404).json({ message: 'User not found' });
 
-    res.json({ message: 'User deleted successfully' });
+    res.json({ message: 'User deleted' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
