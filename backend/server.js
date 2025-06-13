@@ -29,14 +29,24 @@ mongoose.connect(process.env.MONGO_URI)
 // POST
 app.post('/users', async (req, res) => {
   try {
+    console.log('POST /users body:', req.body);
+
     const { username, email, preferences } = req.body;
+
+    if (!username || !email) {
+      return res.status(400).json({ message: 'Username and email are required' });
+    }
+
     const newUser = new User({ username, email, preferences });
     await newUser.save();
+
     res.status(201).json(newUser);
   } catch (error) {
+    console.error('Error saving user:', error);
     res.status(500).json({ message: error.message });
   }
 });
+
 
 // GET
 app.get('/users', async (req, res) => {
