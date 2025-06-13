@@ -1,23 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function App() {
+  const [users, setUsers] = useState([]);
+  const [form, setForm] = useState({ username: '', email: '', preferences: '' });
+
+  // Fetch all users
+  useEffect(() => {
+    axios.get('http://localhost:5000/users')
+      .then(res => setUsers(res.data))
+      .catch(err => console.error(err));
+  }, []);
+
+  // Handle form input changes
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  // Handle form submission to add user
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post('http://localhost:5000/users', {
+      username: form.username,
+      email: form.email,
+      preferences: { theme: form.preferences }
+    })
+      .then(res => setUsers([...users, res.data]))
+      .catch(err => console.error(err));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="p-4">
+      <h1 className="text-2xl mb-4">User List</h1>
+      
+      <ul className="mb-4">
+        {users.map(user => (
+          <li key={user._id}>
+            {user.username} - {user.email} - {user.preferences?.theme}
+          </li>
+        ))}
+      </ul>
+
+      <form onSubmit={handleSubmit} className="space-y-2">
+        <input name="username" placeholder="Username" onChange={handleChange} className="border p-2" required />
+        <input name="email" placeholder="Email" onChange={handleChange} className="border p-2" required />
+        <input name="preferences" placeholder="Theme (dark/light)" onChange={handleChange} className="border p-2" required />
+        <button type="submit" className="bg-blue-500 text-white p-2">Add User</button>
+      </form>
     </div>
   );
 }

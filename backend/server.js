@@ -1,13 +1,84 @@
-const express = require('express');
-const cors = require('cors');        
-const app = express();
 require('dotenv').config();
-const PORT = process.env.PORT || 5000;
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const app = express();
+const PORT = process.env.PORT || 5001;
 
 
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
-
 app.use(express.json());
+
+const userSchema = new mongoose.Schema({
+  username: { type: String, required: true },
+  email: { type: String, required: true },
+  preferences: { type: Object },
+});
+
+const User = mongoose.model('User', userSchema);
+
+// Mongo LINK
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('MongoDB connected'))
+  .catch((err) => console.error('MongoDB connection error:', err));
+
+// Routes
+
+// POST
+app.post('/users', async (req, res) => {
+  try {
+    const { username, email, preferences } = req.body;
+    const newUser = new User({ username, email, preferences });
+    await newUser.save();
+    res.status(201).json(newUser);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// GET
+app.get('/users', async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// PUT
+app.put('/users/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { username, email, preferences } = req.body;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { username, email, preferences },
+      { new: true }
+    );
+
+    if (!updatedUser) return res.status(404).json({ message: 'User not found' });
+
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// DELETE
+app.delete('/users/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedUser = await User.findByIdAndDelete(id);
+
+    if (!deletedUser) return res.status(404).json({ message: 'User not found' });
+
+    res.json({ message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 app.get('/', (req, res) => res.send('API Running'));
 

@@ -1,0 +1,12 @@
+[
+  {
+    "username": "User1",
+    "email": "user1@example.com",
+    "preferences": { "theme": "dark" }
+  },
+  {
+    "username": "User2",
+    "email": "user2@example.com",
+    "preferences": { "theme": "light" }
+  }
+]
