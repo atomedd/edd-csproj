@@ -9,7 +9,6 @@ const authRoutes = require('./routes/auth');
 
 
 // Route Files
-const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 
 const app = express();
