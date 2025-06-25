@@ -27,7 +27,29 @@ const getRecentActivity = async (steamId) => {
 };
 
 
+//STEAM OVERVIEW LOGIC
 
+const getSteamOverview = async (steamId) => {
+  const [player, games, recent] = await Promise.all([
+    getPlayerSummaries(steamId),
+    getOwnedGames(steamId),
+    getRecentActivity(steamId)
+  ]);
 
-module.exports = { getPlayerSummaries, getOwnedGames, getTotalPlaytime, getRecentActivity };
+  const totalMinutes = games.reduce((sum, g) => sum + g.playtime_forever, 0);
+  const topGames = [...games]
+    .sort((a, b) => b.playtime_forever - a.playtime_forever)
+    .slice(0, 5);
+
+  return {
+    accountName: player.personaname,
+    avatar: player.avatarfull,
+    totalPlaytimeHours: Math.round(totalMinutes / 60),
+    gameCount: games.length,
+    recentGames: recent,
+    topGames
+  };
+};
+
+module.exports = { getPlayerSummaries, getOwnedGames, getTotalPlaytime, getRecentActivity, getSteamOverview };
 

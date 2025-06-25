@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const verifyToken = require('../middleware/auth');
-const { getPlayerSummaries, getOwnedGames, getTotalPlaytime, getRecentActivity } = require('../services/steam');
+const { getPlayerSummaries, getOwnedGames, getTotalPlaytime, getRecentActivity, getSteamOverview } = require('../services/steam');
+
 
 // Summary
 router.get('/summary/:steamId', verifyToken, async (req, res) => {
@@ -46,5 +47,17 @@ router.get('/recent/:steamId', verifyToken, async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+// Steam Overview
+
+router.get('/overview/:steamId', verifyToken, async (req, res) => {
+  try {
+    const overview = await getSteamOverview(req.params.steamId);
+    res.json(overview);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 module.exports = router;
