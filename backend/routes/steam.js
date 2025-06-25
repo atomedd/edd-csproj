@@ -2,6 +2,8 @@ const router = require('express').Router();
 const verifyToken = require('../middleware/auth');
 const User = require('../models/User');
 const { getPlayerSummaries, getOwnedGames, getTotalPlaytime, getRecentActivity, getSteamOverview } = require('../services/steam');
+const passport = require('passport');
+
 
 
 // Summary
@@ -53,7 +55,7 @@ router.get('/recent/:steamId', verifyToken, async (req, res) => {
 
 router.get('/overview', verifyToken, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id); // ⬅ from token
+    const user = await User.findById(req.user.id); 
     if (!user || !user.steamId) {
       return res.status(400).json({ message: 'Steam ID not linked to user.' });
     }
@@ -67,20 +69,34 @@ router.get('/overview', verifyToken, async (req, res) => {
 
 // Steam Manual Link
 
-router.put('/steam-id', verifyToken, async (req, res) => {
+router.put('/link', verifyToken, async (req, res) => {
+  const { steamId } = req.body;
+
   try {
-    const { steamId } = req.body;
     const user = await User.findByIdAndUpdate(
       req.user.id,
-      { steamId },
+      { steamId, steamLinked: true },
       { new: true }
     );
-    res.json({ message: 'Steam ID updated', steamId: user.steamId });
+
+    res.json({ message: 'Your Steam account is now linked!', steamId: user.steamId });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error('Link Steam error:', err.message);
+    res.status(500).json({ message: 'Failed to link Steam account' });
   }
 });
 
+// RED TO STEAM LOG IN 
+router.get('/steam', passport.authenticate('steam'));
+
+// STEAM LOG IN CALLBACK
+router.get('/steam/return',
+  passport.authenticate('steam', { failureRedirect: '/' }),
+  (req, res) => {
+
+    res.redirect('http://localhost:3000/dashboard');
+  }
+);
 
 
 module.exports = router;

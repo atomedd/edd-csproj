@@ -6,6 +6,9 @@ const http = require('http');
 const socketIo = require('socket.io');
 const steamRoutes = require('./routes/steam');
 const authRoutes = require('./routes/auth');
+const session = require('express-session');
+const passport = require('passport');
+require('./config/passport');
 
 
 // Route Files
@@ -19,6 +22,10 @@ app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(express.json());
 app.use('/api/steam', steamRoutes);
 app.use('/api/auth', authRoutes);
+app.use(session({secret: 'your-secret',resave: false, saveUninitialized: true}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 // MongoDB Connection
