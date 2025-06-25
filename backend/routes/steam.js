@@ -94,7 +94,7 @@ router.get('/steam/return',
   passport.authenticate('steam', { failureRedirect: '/' }),
   (req, res) => {
 
-    res.redirect('http://localhost:3000/dashboard');
+    res.redirect('http://localhost:3165/dashboard');
   }
 );
 
