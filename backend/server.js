@@ -5,6 +5,8 @@ const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
 const steamRoutes = require('./routes/steam');
+const authRoutes = require('./routes/auth');
+
 
 // Route Files
 const authRoutes = require('./routes/auth');
@@ -17,6 +19,8 @@ const PORT = process.env.PORT || 3165;
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(express.json());
 app.use('/api/steam', steamRoutes);
+app.use('/api/auth', authRoutes);
+
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
