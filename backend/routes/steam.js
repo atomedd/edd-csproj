@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const verifyToken = require('../middleware/auth');
+const User = require('../models/User');
 const { getPlayerSummaries, getOwnedGames, getTotalPlaytime, getRecentActivity, getSteamOverview } = require('../services/steam');
 
 
@@ -50,14 +51,36 @@ router.get('/recent/:steamId', verifyToken, async (req, res) => {
 
 // Steam Overview
 
-router.get('/overview/:steamId', verifyToken, async (req, res) => {
+router.get('/overview', verifyToken, async (req, res) => {
   try {
-    const overview = await getSteamOverview(req.params.steamId);
+    const user = await User.findById(req.user.id); // ⬅ from token
+    if (!user || !user.steamId) {
+      return res.status(400).json({ message: 'Steam ID not linked to user.' });
+    }
+
+    const overview = await getSteamOverview(user.steamId);
     res.json(overview);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
+
+// Steam Manual Link
+
+router.put('/steam-id', verifyToken, async (req, res) => {
+  try {
+    const { steamId } = req.body;
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { steamId },
+      { new: true }
+    );
+    res.json({ message: 'Steam ID updated', steamId: user.steamId });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 
 module.exports = router;
