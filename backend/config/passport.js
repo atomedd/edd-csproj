@@ -18,16 +18,14 @@ passport.use(new SteamStrategy({
 }, async (identifier, profile, done) => {
   try {
     const steamId = profile.id;
-
     let user = await User.findOne({ steamId });
 
     if (!user) {
       user = await User.create({
         username: profile.displayName,
         steamId,
-        avatar: profile._json.avatarfull,
-        email,
-        password,
+        email: `${steamId}@steamcommunity.com`,
+        password: 'placeholder'
       });
     }
 
