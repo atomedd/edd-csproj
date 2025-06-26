@@ -2,7 +2,6 @@ const router = require('express').Router();
 const verifyToken = require('../middleware/auth');
 const User = require('../models/User');
 const { getPlayerSummaries, getOwnedGames, getTotalPlaytime, getRecentActivity, getSteamOverview } = require('../services/steam');
-const passport = require('passport');
 
 
 
@@ -85,18 +84,5 @@ router.put('/link', verifyToken, async (req, res) => {
     res.status(500).json({ message: 'Failed to link Steam account' });
   }
 });
-
-// RED TO STEAM LOG IN 
-router.get('/steam', passport.authenticate('steam'));
-
-// STEAM LOG IN CALLBACK
-router.get('/steam/return',
-  passport.authenticate('steam', { failureRedirect: '/' }),
-  (req, res) => {
-
-    res.redirect('http://localhost:3165/dashboard');
-  }
-);
-
 
 module.exports = router;

@@ -23,7 +23,6 @@ app.use(express.json());
 app.use('/api/steam', steamRoutes);
 app.use('/api/auth', authRoutes);
 app.use(session({secret: 'your-secret',resave: false, saveUninitialized: true}));
-
 app.use(passport.initialize());
 app.use(passport.session());
 
