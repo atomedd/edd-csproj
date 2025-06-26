@@ -1,4 +1,4 @@
-require = ('dotenv').config();
+require('dotenv').config();
 const passport = require('passport');
 const SteamStrategy = require('passport-steam').Strategy;
 const User = require('../models/User');
