@@ -16,9 +16,6 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-console.log('[DEBUG] STEAM_API_KEY:', process.env.STEAM_API_KEY);
-
-
 passport.use(new SteamStrategy({
   returnURL: process.env.STEAM_RETURN_URL,
   realm: process.env.STEAM_REALM,
