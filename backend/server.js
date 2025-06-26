@@ -22,15 +22,10 @@ app.use(cors({ origin: 'http://localhost:3165', credentials: true }));
 app.use(express.json());
 app.use('/api/steam', steamRoutes);
 app.use('/api/auth', authRoutes);
-app.use(session({secret: 'your-secret',resave: false, saveUninitialized: true}));
+app.use(session({ secret: process.env.SESSION_SECRET || 'supersecretkey', resave: false, saveUninitialized: false, cookie: { secure: false }}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'supersecretkey',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false }
-}));
+
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
