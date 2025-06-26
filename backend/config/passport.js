@@ -7,8 +7,12 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-  const user = await User.findById(id);
-  done(null, user);
+  try {
+    const user = await User.findById(id);
+    done(null, user); 
+  } catch (err) {
+    done(err, null);
+  }
 });
 
 passport.use(new SteamStrategy({
