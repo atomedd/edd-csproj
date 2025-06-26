@@ -16,17 +16,23 @@ passport.use(new SteamStrategy({
   realm: process.env.STEAM_REALM,
   apiKey: process.env.STEAM_API_KEY
 }, async (identifier, profile, done) => {
-  const steamId = profile.id;
+  try {
+    const steamId = profile.id;
 
-  let user = await User.findOne({ steamId });
+    let user = await User.findOne({ steamId });
 
-  if (!user) {
-    user = await User.create({
-      username: profile.displayName,
-      steamId,
-      avatar: profile._json.avatarfull
-    });
+    if (!user) {
+      user = await User.create({
+        username: profile.displayName,
+        steamId,
+        avatar: profile._json.avatarfull,
+        email,
+        password,
+      });
+    }
+
+    return done(null, user);
+  } catch (err) {
+    return done(err);
   }
-
-  return done(null, user);
 }));
