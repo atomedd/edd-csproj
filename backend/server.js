@@ -18,14 +18,19 @@ const app = express();
 const PORT = process.env.PORT || 3165;
 
 // Middleware
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: 'http://localhost:3165', credentials: true }));
 app.use(express.json());
 app.use('/api/steam', steamRoutes);
 app.use('/api/auth', authRoutes);
 app.use(session({secret: 'your-secret',resave: false, saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'supersecretkey',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false }
+}));
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
@@ -33,8 +38,10 @@ mongoose.connect(process.env.MONGO_URI)
   .catch((err) => console.error('Database connection error:', err));
 
 // Route Middleware
-app.use('/api/auth', authRoutes);  // For login, register
-app.use('/api/users', userRoutes); // For protected user CRUD routes
+  // For login, register
+app.use('/api/auth', authRoutes);  
+   // For protected user CRUD routes
+app.use('/api/users', userRoutes);
 
 // Root Route
 app.get('/', (req, res) => res.send('API Running'));
