@@ -1,4 +1,4 @@
-require('dotenv').config();
+const require = ('dotenv').config();
 const passport = require('passport');
 const SteamStrategy = require('passport-steam').Strategy;
 const User = require('../models/User');
@@ -28,14 +28,16 @@ passport.use(new SteamStrategy({
     const steamId = profile.id;
     let user = await User.findOne({ steamId });
 
-    if (!user) {
-      user = await User.create({
-        username: profile.displayName,
-        steamId,
-        email: `${steamId}@steamcommunity.com`,
-        password: 'placeholder'
-      });
-    }
+  if (!user) {
+    user = await User.create({
+      username: profile.displayName,
+      steamId,
+      email: '',     
+      password: '',
+      authProvider: 'steam'
+    });
+  }
+
 
     return done(null, user);
   } catch (err) {
