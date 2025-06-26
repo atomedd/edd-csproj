@@ -51,7 +51,7 @@ router.post('/login', async (req, res) => {
 // Route to redirect to Steam
 router.get('/steam', passport.authenticate('steam'));
 
-//router.get('/steam/return',
+router.get('/steam/return',
   passport.authenticate('steam', { failureRedirect: '/' }),
   async (req, res) => {
 
@@ -60,16 +60,7 @@ router.get('/steam', passport.authenticate('steam'));
 
     res.redirect(`http://localhost:3000/dashboard?token=${token}`);
   }
-//);
-
-router.get('/steam/return',
-  passport.authenticate('steam', { failureRedirect: '/' }),
-  (req, res) => {
-    const token = jwt.sign({ id: req.user._id, username: req.user.username }, process.env.JWT_SECRET, { expiresIn: '1d' });
-
-    // Return the token directly (no redirect)
-    res.json({ message: 'Login successful', token, user: req.user });
-  }
 );
+
 
 module.exports = router;
