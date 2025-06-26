@@ -33,38 +33,32 @@ function App() {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl mb-4">User List</h1>
-      
-      <ul className="mb-4">
-        {users.map(user => (
-          <li key={user._id}>
-            {user.username} - {user.email} - {user.preferences?.theme}
-          </li>
-        ))}
-      </ul>
-
-      <form onSubmit={handleSubmit} className="space-y-2">
-        <input name="username" placeholder="Username" onChange={handleChange} className="border p-2" required />
-        <input name="email" placeholder="Email" onChange={handleChange} className="border p-2" required />
-        <input name="preferences" placeholder="Theme (dark/light)" onChange={handleChange} className="border p-2" required />
-        <button type="submit" className="bg-blue-500 text-white p-2">Add User</button>
-      </form>
-    </div>
-  );
-}
-
-
-  return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={
+          <div className="p-4">
+            <h1 className="text-2xl mb-4">User List</h1>
+
+            <ul className="mb-4">
+              {users.map(user => (
+                <li key={user._id}>
+                  {user.username} - {user.email} - {user.preferences?.theme}
+                </li>
+              ))}
+            </ul>
+
+            <form onSubmit={handleSubmit} className="space-y-2">
+              <input name="username" placeholder="Username" onChange={handleChange} className="border p-2" required />
+              <input name="email" placeholder="Email" onChange={handleChange} className="border p-2" required />
+              <input name="preferences" placeholder="Theme (dark/light)" onChange={handleChange} className="border p-2" required />
+              <button type="submit" className="bg-blue-500 text-white p-2">Add User</button>
+            </form>
+          </div>
+        } />
       </Routes>
     </Router>
   );
-
-
-
+}
 
 export default App;
