@@ -1,3 +1,4 @@
+require('dotenv').config();
 const passport = require('passport');
 const SteamStrategy = require('passport-steam').Strategy;
 const User = require('../models/User');
@@ -14,6 +15,9 @@ passport.deserializeUser(async (id, done) => {
     done(err, null);
   }
 });
+
+console.log('[DEBUG] STEAM_API_KEY:', process.env.STEAM_API_KEY);
+
 
 passport.use(new SteamStrategy({
   returnURL: process.env.STEAM_RETURN_URL,
