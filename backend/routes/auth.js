@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const passport = require('passport');
 
 
 // Register
@@ -46,5 +47,17 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+// Route to redirect to Steam
+router.get('/steam', passport.authenticate('steam'));
+
+// Steam return/callback route
+router.get('/steam/return',
+  passport.authenticate('steam', { failureRedirect: '/' }),
+  (req, res) => {
+    // Redirect to frontend or return token
+    res.redirect('http://localhost:3000/dashboard');
+  }
+);
 
 module.exports = router;
