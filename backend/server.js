@@ -26,6 +26,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
@@ -33,7 +34,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Route Middleware
   // For login, register
-app.use('/api/auth', authRoutes);  
+app.use('/api/auth', authRoutes);
    // For protected user CRUD routes
 app.use('/api/users', userRoutes);
 

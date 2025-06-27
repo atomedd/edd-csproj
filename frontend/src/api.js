@@ -1,7 +1,8 @@
-import axios from "axios";
+import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:3165', // No trailing slash
+  baseURL: 'http://localhost:3165',
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
   }
