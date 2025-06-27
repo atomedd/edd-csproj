@@ -56,7 +56,7 @@ router.get('/steam/return',
   async (req, res) => {
     const user = req.user;
     const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    res.redirect(`http://localhost:3000/?token=${token}`); // ← back to "/"
+      res.redirect(`http://localhost:3000/dashboard?token=${token}`);
   }
 );
 
