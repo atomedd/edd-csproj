@@ -22,7 +22,6 @@ app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(express.json());
 app.use(session({ secret: process.env.SESSION_SECRET || 'supersecretkey', resave: false, saveUninitialized: false, cookie: { secure: false }}));
 app.use('/api/steam', steamRoutes);
-app.use('/auth', authRoutes);
 app.use(passport.initialize());
 app.use(passport.session());
 
