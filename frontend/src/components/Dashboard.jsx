@@ -30,24 +30,30 @@ export default function Dashboard() {
         🎮 Total Hours Played: {(overview.totalPlaytime / 60).toFixed(1)}
       </p>
 
-      <h2 className="text-xl font-semibold mb-4">Owned Games</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {overview.ownedGames.map((game) => (
-          <div key={game.appid} className="bg-white p-4 rounded-lg shadow">
-            <div className="flex items-center gap-4">
-              <img
-                src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${game.appid}/capsule_184x69.jpg`}
-                alt={game.name}
-                className="w-32 h-auto"
-              />
-              <div>
-                <h2 className="text-lg font-bold">{game.name}</h2>
-                <p>Hours Played: {(game.playtime_forever / 60).toFixed(1)}</p>
-              </div>
+             {overview?.ownedGames?.length > 0 ? (
+            <>
+            <h2 className="text-xl font-semibold mb-4">Owned Games</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {overview.ownedGames.map((game) => (
+                <div key={game.appid} className="bg-white p-4 rounded-lg shadow">
+                <div className="flex items-center gap-4">
+                    <img
+                    src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${game.appid}/capsule_184x69.jpg`}
+                    alt={game.name}
+                    className="w-32 h-auto"
+                    />
+                    <div>
+                    <h2 className="text-lg font-bold">{game.name}</h2>
+                    <p>Hours Played: {(game.playtime_forever / 60).toFixed(1)}</p>
+                    </div>
+                </div>
+                </div>
+            ))}
             </div>
-          </div>
-        ))}
-      </div>
+        </>
+        ) : (
+        <p className="text-gray-600">No Steam games found or Steam not linked.</p>
+        )}
     </div>
   );
 }
