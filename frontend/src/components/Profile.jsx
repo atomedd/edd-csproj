@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import API from "../api";
 import Navbar from "./Navbar";
 
+{/*STILL WORKING ON THIS*/}
+
 export default function Profile() {
   const [user, setUser] = useState(null);
   const [steamId, setSteamId] = useState("");

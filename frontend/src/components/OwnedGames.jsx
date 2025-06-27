@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import API from "../api";
 import Navbar from "./Navbar";
 
-
+{/*STILL NEED TO ADD PLACEHOLDER IMG FOR GAMES THAT DONT HAVE IMAGES*/}
 export default function OwnedGames() {
   const [games, setGames] = useState([]);
 

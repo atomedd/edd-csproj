@@ -4,14 +4,15 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
+      
     <nav className="bg-gray-800 text-white px-6 py-3 flex justify-between items-center">
-     <Link to="/dashboard" className="hover:underline"> <h1 className="font-bold text-xl">gameHUB</h1></Link>
+     <Link to="/dashboard" className="hover:underline"> <h1 className="font-bold text-xl">gameHUB</h1></Link>{/*LOGO*/}
       <div className="space-x-4">
         <Link to="/dashboard" className="hover:underline">Dashboard</Link>
         <Link to="/games" className="hover:underline">Owned Games</Link>
         <Link to="/profile" className="hover:underline">Profile</Link>
         
-
+          {/*BUTTON*/}
         <button
           onClick={() => {
             localStorage.clear();
