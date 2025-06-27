@@ -18,7 +18,7 @@ function App() {
     const token = query.get("token");
     if (token) {
       localStorage.setItem("token", token);
-      window.location.href = "/dashboard"; // Redirect to dashboard
+      window.location.replace("/dashboard");
     }
   }, []);
 
