@@ -7,6 +7,7 @@ export default function Navbar() {
       <div className="space-x-4">
         <Link to="/dashboard" className="hover:underline">Dashboard</Link>
         <Link to="/games" className="hover:underline">Owned Games</Link>
+        <Link to="/profile" className="hover:underline">Profile</Link>
         <button
           onClick={() => {
             localStorage.clear();

@@ -5,6 +5,10 @@ import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import OwnedGames from "./components/OwnedGames";
+import Profile from "./components/Profile";
+
+
+
 
 
 function App() {
@@ -25,11 +29,12 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route element={<ProtectedRoute />}>
+          <Route element={<ProtectedRoute />}> {/* PROTECTED ROUTES */}
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/games" element={<OwnedGames />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
-          {/* Add a default redirect */}
+          {/* DEFAUTL CALLBACK */}
           <Route path="/" element={<Login />} />
         </Routes>
       </BrowserRouter>
