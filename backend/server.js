@@ -40,4 +40,4 @@ app.use('/api/users', userRoutes);
 app.get('/', (req, res) => res.send('API Running'));
 
 // Start Server
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
