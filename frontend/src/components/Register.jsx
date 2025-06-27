@@ -9,7 +9,7 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await API.post("/api/auth/register", formData);
+      await API.post("/auth/register", formData);
       alert("Registration successful! Please log in.");
       navigate("/login");
     } catch (err) {

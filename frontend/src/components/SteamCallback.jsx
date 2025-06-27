@@ -7,11 +7,15 @@ export default function SteamCallback() {
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     const token = query.get("token");
+     console.log("🔁 SteamCallback loaded with token:", token);
 
+     
     if (token) {
       localStorage.setItem("token", token);
       navigate("/dashboard");
-    } else {
+    }
+    
+    else {
       navigate("/login");
     }
   }, [navigate]);
