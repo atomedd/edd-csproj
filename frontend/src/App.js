@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect } from "react"; // Add this import
+import { useEffect } from "react";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import OwnedGames from "./components/OwnedGames";
 import Profile from "./components/Profile";
+import SteamCallback from "./components/SteamCallback";
 
 
 
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/steam-callback" element={<SteamCallback />} />
           <Route element={<ProtectedRoute />}> {/* PROTECTED ROUTES */}
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/games" element={<OwnedGames />} />

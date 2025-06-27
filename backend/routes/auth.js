@@ -58,8 +58,7 @@ router.get('/steam/return',
     const user = req.user;
     const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
-    res.redirect(`http://localhost:3000/dashboard?token=${token}`);
-  }
+    res.redirect(`http://localhost:3000/steam-callback?token=${token}`);  }
 );
 
 
