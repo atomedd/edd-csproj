@@ -6,7 +6,6 @@ import Dashboard from "./components/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import OwnedGames from "./components/OwnedGames";
 import Profile from "./components/Profile";
-import SteamCallback from "./components/SteamCallback";
 
 
 
@@ -35,7 +34,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/games" element={<OwnedGames />} />
             <Route path="/profile" element={<Profile />} />
-            
+
           </Route>
           {/* DEFAUTL CALLBACK */}
           <Route path="/" element={<Login />} />
