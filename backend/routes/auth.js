@@ -5,12 +5,12 @@ const User = require('../models/User');
 const passport = require('passport');
 
 
-// Register
+// REGISTER
 router.post('/register', async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    // Basic input validation
+    // VERIFY INFO
     if (!username || !email || !password) {
       return res.status(400).json({ message: 'All fields are required' });
     }
@@ -27,7 +27,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Login
+// LOGIN
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -48,25 +48,16 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Route to redirect to Steam
+// ROUTE TO STEAM
 router.get('/steam', passport.authenticate('steam'));
 
 router.get('/steam/return',
   passport.authenticate('steam', { failureRedirect: '/' }),
   async (req, res) => {
-
     const user = req.user;
     const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1d' });
-
-    res.redirect(`http://localhost:3000/steam-callback?token=${token}`);  }
+    res.redirect(`http://localhost:3000/?token=${token}`); // ← back to "/"
+  }
 );
-
-
-//TEST LINE
-
-router.get('/login', (req, res) => {
-  res.json({ message: "GET works - but you should use POST!" });
-});
-
 
 module.exports = router;

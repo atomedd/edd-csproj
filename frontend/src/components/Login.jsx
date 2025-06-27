@@ -10,7 +10,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await API.post("/auth/login", formData);
+      const res = await API.post("/api/auth/login", formData);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
       navigate("/dashboard");
@@ -24,7 +24,7 @@ export default function Login() {
       <div className="bg-white p-8 rounded shadow-md w-96">
         <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
         
-        {/* Display error message */}
+        {/* ERROR MESSAGE */}
         {error && (
           <div className="mb-4 p-2 bg-red-100 text-red-700 rounded">
             {error}
@@ -36,7 +36,7 @@ export default function Login() {
             type="email"
             placeholder="Email"
             className="w-full p-2 mb-4 border rounded"
-            value={formData.email} // Add controlled input
+            value={formData.email} 
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             required
           />
@@ -44,7 +44,7 @@ export default function Login() {
             type="password"
             placeholder="Password"
             className="w-full p-2 mb-4 border rounded"
-            value={formData.password} // Add controlled input
+            value={formData.password} 
             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
             required
           />
@@ -57,19 +57,20 @@ export default function Login() {
         </form>
 
         <div className="mt-4 text-center">
-        <Link 
-            to="http://localhost:3165/api/auth/steam" 
-            className="block p-2 bg-[#171a21] text-white rounded hover:bg-[#363c44]"
+
+          <a
+          href="http://localhost:3165/api/auth/steam"
+          className="block p-2 bg-[#171a21] text-white rounded hover:bg-[#363c44]"
         >
-            <div className="flex items-center justify-center gap-2">
-            <img 
-                src="https://store.steampowered.com/favicon.ico" 
-                alt="Steam" 
-                className="h-5 w-5" 
+          <div className="flex items-center justify-center gap-2">
+            <img
+              src="https://store.steampowered.com/favicon.ico"
+              alt="Steam"
+              className="h-5 w-5"
             />
             Login with Steam
-            </div>
-        </Link>
+          </div>
+        </a>
         </div>
         <p className="mt-4 text-center">
           Don't have an account?{" "}

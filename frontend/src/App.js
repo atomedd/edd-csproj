@@ -13,15 +13,15 @@ import SteamCallback from "./components/SteamCallback";
 
 
 function App() {
-  // Handle Steam OAuth redirect with token
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     const token = query.get("token");
-    if (token) {
-      localStorage.setItem("token", token);
-      window.location.replace("/dashboard");
-    }
-  }, []);
+
+  if (token) {
+    localStorage.setItem("token", token);
+    window.history.replaceState({}, document.title, "/dashboard");
+  }
+}, []);
 
 
   return (
@@ -30,11 +30,12 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/steam-callback" element={<SteamCallback />} />
+          
           <Route element={<ProtectedRoute />}> {/* PROTECTED ROUTES */}
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/games" element={<OwnedGames />} />
             <Route path="/profile" element={<Profile />} />
+            
           </Route>
           {/* DEFAUTL CALLBACK */}
           <Route path="/" element={<Login />} />
