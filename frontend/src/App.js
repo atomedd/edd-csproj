@@ -8,16 +8,38 @@ import OwnedGames from "./components/OwnedGames";
 import Profile from "./components/Profile";
 
 function App() {
-  // Handle token in URL from Steam redirect
+  
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     const token = query.get("token");
 
-    if (token) {
-      localStorage.setItem("token", token);
-      window.location.href = "/dashboard"; // ← Works without needing new files
+  //  if (token) {
+  //    localStorage.setItem("token", token);
+  //    window.location.href = "/dashboard";
+  //  }
+  //}, []);
+
+  if (token) {
+  localStorage.setItem("token", token);
+
+  // Fetch and store user info
+      fetch("http://localhost:3165/api/auth/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          localStorage.setItem("user", JSON.stringify(data));
+          window.location.href = "/dashboard";
+        })
+        .catch((err) => {
+          console.error("Failed to fetch user:", err);
+          window.location.href = "/login";
+        });
     }
-  }, []);
+}, []);
+
 
   return (
     <div className="min-h-screen bg-gray-100">
