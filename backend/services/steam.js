@@ -50,7 +50,7 @@
       username: player.personaname,
       avatar: player.avatarfull,
       totalPlaytime: totalMinutes, 
-      //ownedGames: games,         
+      ownedGames: games,         
       recentGames: recent,
       topGames: [...games]
       .sort((a, b) => b.playtime_forever - a.playtime_forever)
