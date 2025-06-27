@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 
-const toggleDarkMode = () => {
-  document.documentElement.classList.toggle('dark');
-};
+
 
 export default function Navbar() {
   return (
