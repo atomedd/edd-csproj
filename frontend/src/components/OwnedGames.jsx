@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../api";
+import Navbar from "./Navbar";
+
 
 export default function OwnedGames() {
   const [games, setGames] = useState([]);
@@ -17,6 +19,8 @@ export default function OwnedGames() {
   }, []);
 
   return (
+    <>
+            <Navbar />
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-6">Owned Games</h1>
       {games.length === 0 ? (
@@ -41,5 +45,6 @@ export default function OwnedGames() {
         </div>
       )}
     </div>
+    </>
   );
 }

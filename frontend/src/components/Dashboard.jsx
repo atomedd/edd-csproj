@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../api";
 import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
 
 export default function Dashboard() {
   const [overview, setOverview] = useState(null);
@@ -26,6 +27,8 @@ export default function Dashboard() {
   if (!overview) return <p className="p-6 text-red-500">Steam data not available.</p>;
 
   return (
+      <>
+        <Navbar />
     <div className="p-6">
       <div className="flex items-center gap-4 mb-6">
         
@@ -110,5 +113,6 @@ export default function Dashboard() {
         </Link>
         </div>
     </div>
+    </>
   );
 }
