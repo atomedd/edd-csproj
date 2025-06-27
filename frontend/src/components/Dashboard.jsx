@@ -26,13 +26,21 @@ export default function Dashboard() {
   return (
     <div className="p-6">
       <div className="flex items-center gap-4 mb-6">
+        
+        {/* WELCOME BLOCK START */}
+        <div>
+          <h1 className="text-2xl font-bold">Welcome, {overview.username || "Player"}</h1>
+              {/* WELCOME BLOCK END */}
+              
+        {/* PROFILE PIC START */}
         <img
           src={overview.avatar}
           alt="Steam Avatar"
           className="w-16 h-16 rounded-full shadow"
         />
-        <div>
-          <h1 className="text-2xl font-bold">Welcome, {overview.username || "Player"}</h1>
+         {/* PROFILE PIC END */}
+
+
           <p className="text-gray-700">
             🎮 Total Hours Played: {(overview.totalPlaytime / 60).toFixed(1)}
           </p>
