@@ -15,12 +15,14 @@ require('./config/passport');
 const userRoutes = require('./routes/users');
 
 const app = express();
+app.use('/users', userRoutes);
 const PORT = process.env.PORT || 3165;
 
 // Middleware
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(express.json());
 app.use(session({ secret: process.env.SESSION_SECRET || 'supersecretkey', resave: false, saveUninitialized: false, cookie: { secure: false }}));
+
 app.use('/api/steam', steamRoutes);
 app.use(passport.initialize());
 app.use(passport.session());
