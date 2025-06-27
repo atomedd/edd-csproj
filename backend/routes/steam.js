@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const verifyToken = require('../middleware/auth');
 const User = require('../models/User');
-const { getPlayerSummaries, getOwnedGames, getTotalPlaytime, getRecentActivity, getSteamOverview } = require('../services/steam');
+const { getPlayerSummaries, getOwnedGames, getTotalPlaytime, getRecentActivity, getSteamOverview } = require('./your-steam-api-wrapper');
 
 
 

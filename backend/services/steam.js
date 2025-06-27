@@ -47,12 +47,11 @@
       .slice(0, 5);
 
     return {
-      accountName: player.personaname,
+      username: player.personaname,
       avatar: player.avatarfull,
-      totalPlaytimeHours: Math.round(totalMinutes / 60),
-      gameCount: games.length,
+      totalPlaytime: totalMinutes, 
+      ownedGames: games,         
       recentGames: recent,
-      topGames
     };
   };
 
