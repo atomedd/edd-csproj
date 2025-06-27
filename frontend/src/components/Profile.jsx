@@ -14,7 +14,7 @@ export default function Profile() {
 
   const handleLink = async () => {
     try {
-      const res = await API.put("/steam/link", { steamId });
+      await API.put("/steam/link", { steamId });
       setMessage("Steam account linked successfully.");
       // Update localStorage
       const updatedUser = { ...user, steamId, steamLinked: true };
