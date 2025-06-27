@@ -47,7 +47,6 @@ export default function Dashboard() {
 
           <p className="text-gray-700">
             🎮 Total Hours Played: {(overview.totalPlaytime / 60).toFixed(1)}
-            <h1 className="text-3xl font-bold text-purple-600">Hello, Tailwind!</h1>
 
           </p>
         </div>
