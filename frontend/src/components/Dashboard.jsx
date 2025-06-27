@@ -6,8 +6,13 @@ export default function Dashboard() {
   const [overview, setOverview] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showTopGames, setShowTopGames] = useState(false)
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser?.username) {
+      setUsername(storedUser.username);
+    }
     const fetchSteamOverview = async () => {
       try {
         const res = await API.get("/steam/overview");
@@ -22,8 +27,26 @@ export default function Dashboard() {
     fetchSteamOverview();
   }, []);
 
-  if (loading) return <p className="p-6 text-gray-500">Loading Steam data...</p>;
-  if (!overview) return <p className="p-6 text-red-500">Steam data not available.</p>;
+  if (loading) return <p className="p-6 text-gray-500">Loading user data...</p>;
+  if (!overview) {
+      return (
+        <div className="p-6">
+
+           <h1 className="text-4xl font-bold">Welcome, {username || "Player"}</h1>
+          <h2 className="text-xl font-bold mb-4">You haven't linked any accounts yet..</h2>
+          <p className="text-gray-600 mb-4">  
+            Link your first account to see your games playtime and achievements!
+          </p>
+          <a
+            href="http://localhost:3165/api/auth/steam"
+            className="inline-block bg-[#171a21] text-white px-4 py-2 rounded hover:bg-[#363c44]"
+          >
+            Link Steam Account
+          </a>
+        </div>
+      );
+    }
+
 
   return (
       <>
@@ -33,7 +56,7 @@ export default function Dashboard() {
         
         {/* WELCOME BLOCK START */}
         <div>
-          <h1 className="text-4xl font-bold">Welcome, {overview.username || "Player"}</h1>
+          <h1 className="text-4xl font-bold">Welcome, {username || "Player"}</h1>
      
 
         {/* PROFILE PIC START */}

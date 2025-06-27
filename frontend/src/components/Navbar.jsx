@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
 
+const toggleDarkMode = () => {
+  document.documentElement.classList.toggle('dark');
+};
+
 export default function Navbar() {
   return (
     <nav className="bg-gray-800 text-white px-6 py-3 flex justify-between items-center">
@@ -8,6 +12,8 @@ export default function Navbar() {
         <Link to="/dashboard" className="hover:underline">Dashboard</Link>
         <Link to="/games" className="hover:underline">Owned Games</Link>
         <Link to="/profile" className="hover:underline">Profile</Link>
+        
+
         <button
           onClick={() => {
             localStorage.clear();

@@ -73,9 +73,9 @@ export default function Login() {
         </a>
         </div>
         <p className="mt-4 text-center">
-          Don't have an account?{" "}
+          New here?{" "}
           <Link to="/register" className="text-blue-500 hover:underline">
-            Register
+            Sign Up
           </Link>
         </p>
       </div>
