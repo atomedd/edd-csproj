@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import API from "../api";
+import { Link } from "react-router-dom";
 
 export default function Dashboard() {
   const [overview, setOverview] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showTopGames, setShowTopGames] = useState(false)
 
   useEffect(() => {
     const fetchSteamOverview = async () => {
@@ -73,55 +75,40 @@ export default function Dashboard() {
         )}
 
 
-      {/* Top 5 Games Section */}
-      {overview.topGames?.length > 0 && (
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-4">Top 5 Most Played Games</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {overview.topGames.map((game) => (
-              <div key={game.appid} className="bg-white p-4 rounded-lg shadow">
-                <div className="flex items-center gap-4">
-                  <img
-                    src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${game.appid}/capsule_184x69.jpg`}
-                    alt={game.name}
-                    className="w-32 h-auto"
-                  />
-                  <div>
-                    <h3 className="text-lg font-bold">{game.name}</h3>
-                    <p>Hours Played: {(game.playtime_forever / 60).toFixed(1)}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {/*MOST PLAYED GAMES */}
+      <div className="mb-6">
+        <button
+            onClick={() => setShowTopGames(!showTopGames)}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mb-4"
+        >
+            {showTopGames ? "Hide Top 5 Games" : "Show Top 5 Games"}
+        </button>
 
-      {/* Owned Games Section */}
-      {overview.ownedGames?.length > 0 ? (
-        <>
-          <h2 className="text-xl font-semibold mb-4">All Owned Games</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {overview.ownedGames.map((game) => (
-              <div key={game.appid} className="bg-white p-4 rounded-lg shadow">
+        {showTopGames && overview.topGames?.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {overview.topGames.map((game) => (
+                <div key={game.appid} className="bg-white p-4 rounded-lg shadow">
                 <div className="flex items-center gap-4">
-                  <img
+                    <img
                     src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${game.appid}/capsule_184x69.jpg`}
                     alt={game.name}
                     className="w-32 h-auto"
-                  />
-                  <div>
+                    />
+                    <div>
                     <h3 className="text-lg font-bold">{game.name}</h3>
                     <p>Hours Played: {(game.playtime_forever / 60).toFixed(1)}</p>
-                  </div>
+                    </div>
                 </div>
-              </div>
+                </div>
             ))}
-          </div>
-        </>
-      ) : (
-        <p className="text-gray-600">No Steam games found or Steam not linked.</p>
-      )}
+            </div>
+            
+        )}
+        <Link
+        to="/games" className="inline-block mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+         View All Owned Games
+        </Link>
+        </div>
     </div>
   );
 }
