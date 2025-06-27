@@ -30,15 +30,15 @@ export default function Dashboard() {
         {/* WELCOME BLOCK START */}
         <div>
           <h1 className="text-2xl font-bold">Welcome, {overview.username || "Player"}</h1>
-              {/* WELCOME BLOCK END */}
-              
+        {/* WELCOME BLOCK END */}
+
         {/* PROFILE PIC START */}
         <img
           src={overview.avatar}
           alt="Steam Avatar"
           className="w-16 h-16 rounded-full shadow"
         />
-         {/* PROFILE PIC END */}
+        {/* PROFILE PIC END */}
 
 
           <p className="text-gray-700">
@@ -46,6 +46,32 @@ export default function Dashboard() {
           </p>
         </div>
       </div>
+
+
+        {/* RECENT GAMES */}
+        {overview.recentGames?.length > 0 && (
+        <div className="mb-8">
+            <h2 className="text-xl font-semibold mb-4">Recently Played Games</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {overview.recentGames.slice(0, 3).map((game) => (
+                <div key={game.appid} className="bg-white p-4 rounded-lg shadow">
+                <div className="flex items-center gap-4">
+                    <img
+                    src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${game.appid}/capsule_184x69.jpg`}
+                    alt={game.name}
+                    className="w-32 h-auto"
+                    />
+                    <div>
+                    <h3 className="text-lg font-bold">{game.name}</h3>
+                    <p>Played for: {(game.playtime_forever / 60).toFixed(1)} hrs</p>
+                    </div>
+                </div>
+                </div>
+            ))}
+            </div>
+        </div>
+        )}
+
 
       {/* Top 5 Games Section */}
       {overview.topGames?.length > 0 && (
