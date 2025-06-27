@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const passport = require('passport');
-const verifyToken = require('../middleware/auth');
+
 
 
 // REGISTER
@@ -60,15 +60,5 @@ router.get('/steam/return',
       res.redirect(`http://localhost:3000/?token=${token}`);
   }
 );
-
-// FAIL TO FIND USER
-router.get('/me', verifyToken, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id).select("-password");
-    res.json(user);
-  } catch (err) {
-    res.status(500).json({ message: "Failed to fetch user" });
-  }
-});
 
 module.exports = router;
