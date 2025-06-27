@@ -63,4 +63,11 @@ router.get('/steam/return',
 );
 
 
+//TEST LINE
+
+router.get('/login', (req, res) => {
+  res.json({ message: "GET works - but you should use POST!" });
+});
+
+
 module.exports = router;
