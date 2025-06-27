@@ -33,14 +33,14 @@ export default function Dashboard() {
         
         {/* WELCOME BLOCK START */}
         <div>
-          <h1 className="text-2xl font-bold">Welcome, {overview.username || "Player"}</h1>
+          <h1 className="text-4xl font-bold">Welcome, {overview.username || "Player"}</h1>
      
 
         {/* PROFILE PIC START */}
         <img
           src={overview.avatar}
           alt="Steam Avatar"
-          className="w-16 h-16 rounded-full shadow"
+          className="w-40 h-40 rounded-full shadow m-10"
         />
        
 

@@ -27,9 +27,9 @@ export default function Profile() {
 
       localStorage.setItem("user", JSON.stringify(updatedUser));
       setUser(updatedUser);
-      setMessage("✅ Steam account linked successfully.");
+      setMessage("Steam account was linked");
     } catch (err) {
-      setMessage(err.response?.data?.message || "❌ Failed to link Steam.");
+      setMessage(err.response?.data?.message || "Failed to link Steam account");
     }
   };
 
