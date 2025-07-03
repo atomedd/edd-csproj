@@ -1,14 +1,20 @@
 import { useState } from "react";
 import API from "../api";
+import { AuthContext } from "../context/AuthContext"; 
 
 export default function LinkSteam() {
   const [steamId, setSteamId] = useState("");
   const [message, setMessage] = useState("");
+  const { setUser } = useContext(AuthContext);
 
   const handleLink = async () => {
     try {
       const res = await API.put("/steam/link", { steamId });
       setMessage(res.data.message || "Steam account linked!");
+
+      const userRes = await API.get("/auth/me");
+      setUser(userRes.data);
+
     } catch (err) {
       setMessage(err.response?.data?.message || "Linking failed.");
     }
