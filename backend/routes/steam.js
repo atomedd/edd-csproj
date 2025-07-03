@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const verifyToken = require('../middleware/auth');
 const User = require('../models/User');
-const { getPlayerSummaries, getOwnedGames, getTotalPlaytime, getRecentActivity, getSteamOverview } =  require('../services/steam');
+const { getPlayerSummaries, getOwnedGames, getTotalPlaytime, getRecentActivity, getSteamOverview, getRecentAchievements } =  require('../services/steam');
 
 
 
@@ -65,6 +65,18 @@ router.get('/overview', verifyToken, async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+// Achievements
+router.get('/achievements/:steamId', verifyToken, async (req, res) => {
+  try {
+    const achievements = await getRecentAchievements(req.params.steamId);
+    res.json({ achievements });
+  } catch (err) {
+    console.error('Achievements fetch error:', err.message);
+    res.status(500).json({ message: 'Failed to fetch achievements' });
+  }
+});
+
 
 // Steam Manual Link
 
