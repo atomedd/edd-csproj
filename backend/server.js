@@ -2,8 +2,6 @@ const dotenv = require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const http = require('http');
-const socketIo = require('socket.io');
 const session = require('express-session');
 const passport = require('passport');
 require('./config/passport');
