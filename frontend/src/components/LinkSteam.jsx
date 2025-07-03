@@ -8,18 +8,16 @@ export default function LinkSteam() {
   const { setUser } = useContext(AuthContext);
 
   const handleLink = async () => {
-    // ✅ Validate BEFORE API call
+
     if (!steamId || steamId.trim().length < 10) {
       setMessage("Please enter a valid Steam ID");
       return;
     }
 
     try {
-      // ✅ Link the Steam account
       const res = await API.put("/steam/link", { steamId });
       setMessage(res.data.message || "Steam account linked!");
 
-      // ✅ Fetch updated user
       const userRes = await API.get("/auth/me");
       setUser(userRes.data);
     } catch (err) {
