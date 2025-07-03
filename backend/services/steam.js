@@ -47,6 +47,7 @@
       .slice(0, 5);
 
     return {
+      steamId,
       username: player.personaname,
       avatar: player.avatarfull,
       totalPlaytime: totalMinutes, 
@@ -81,7 +82,6 @@
         });
       });
     } catch (err) {
-      // If stats are not available (e.g. private games or no achievement support), skip silently
     }
   }
 
