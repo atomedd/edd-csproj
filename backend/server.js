@@ -9,12 +9,25 @@ require('./config/passport');
 const steamRoutes = require('./routes/steam');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
-
 const app = express();
 const PORT = process.env.PORT || 3165;
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://192.168.0.53:3000',
+];
 
 // MIDDLEWARE
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(session({ 
   secret: process.env.SESSION_SECRET || 'supersecretkey', 
