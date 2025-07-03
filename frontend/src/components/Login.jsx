@@ -29,7 +29,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-96">
-        <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center">GameHUB</h1>
         
         {/* ERROR MESSAGE */}
         {error && (
@@ -39,6 +39,8 @@ export default function Login() {
         )}
 
         <form onSubmit={handleSubmit}>
+
+
           <input
             type="email"
             placeholder="Email"
@@ -47,6 +49,8 @@ export default function Login() {
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             required
           />
+
+
           <input
             type="password"
             placeholder="Password"
@@ -55,36 +59,27 @@ export default function Login() {
             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
             required
           />
-          <button 
-            type="submit" 
-            className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >
-            Login
-          </button>
+          <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"> Login</button>
         </form>
 
-        <div className="mt-4 text-center">
-
-          <a
-          href="http://localhost:3165/api/auth/steam"
-          className="block p-2 bg-[#171a21] text-white rounded hover:bg-[#363c44]"
-        >
-          <div className="flex items-center justify-center gap-2">
-            <img
-              src="https://store.steampowered.com/favicon.ico"
-              alt="Steam"
-              className="h-5 w-5"
-            />
-            Login with Steam
-          </div>
-        </a>
-        </div>
         <p className="mt-4 text-center">
           New here?{" "}
-          <Link to="/register" className="text-blue-500 hover:underline">
-            Sign Up
+          <Link to="/register" className="font-bold text-blue-500 hover:underline">
+            Sign Up{" "}
           </Link>
-        </p>
+            or login with:
+        </p>  
+
+        <div className="mt-4 text-center">
+          <a href="http://localhost:3165/api/auth/steam" className="block p-2 bg-slate-800 text-white rounded hover:bg-slate-950">Steam</a> </div>
+        
+        <div className="mt-4 text-center">
+          <a href="http://localhost:3165/api/auth/steam" className="block p-2 bg-green-600 text-white rounded hover:bg-green-700">Xbox</a> </div>
+        
+        <div className="mt-4 text-center">
+          <a href="http://localhost:3165/api/auth/steam" className="block p-2 bg-blue-800 text-white rounded hover:bg-blue-950">Playstation</a> </div>
+
+        
       </div>
     </div>
   );

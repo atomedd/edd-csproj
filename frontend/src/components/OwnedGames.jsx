@@ -22,9 +22,9 @@ export default function OwnedGames() {
     <>
             <Navbar />
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Owned Games</h1>
+      <h1 className="text-4xl font-bold mb-2">Owned Games</h1>
       {games.length === 0 ? (
-        <p>Loading info...</p>
+        <p className="text-gray-600 mb-4">You haven't linked any accounts yet.</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {games.map((game) => (
