@@ -58,5 +58,37 @@
     };
   };
 
-  module.exports = { getPlayerSummaries, getOwnedGames, getTotalPlaytime, getRecentActivity, getSteamOverview };
+  const getRecentAchievements = async (steamId) => {
+  const recentGamesUrl = `https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1/?key=${STEAM_API_KEY}&steamid=${steamId}`;
+  const recentGamesRes = await axios.get(recentGamesUrl);
+  const recentGames = recentGamesRes.data.response.games || [];
+
+  const achievementsList = [];
+
+  for (const game of recentGames) {
+    const achievementsUrl = `https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v1/?key=${STEAM_API_KEY}&steamid=${steamId}&appid=${game.appid}`;
+    
+    try {
+      const res = await axios.get(achievementsUrl);
+      const earned = res.data.playerstats.achievements.filter(a => a.achieved === 1);
+
+      earned.slice(0, 2).forEach(ach => {
+        achievementsList.push({
+          gameName: game.name,
+          appid: game.appid,
+          achievement: ach.name,
+          unlockTime: ach.unlocktime,
+        });
+      });
+    } catch (err) {
+      // If stats are not available (e.g. private games or no achievement support), skip silently
+    }
+  }
+
+  return achievementsList.slice(0, 5);
+};
+
+
+
+  module.exports = { getPlayerSummaries, getOwnedGames, getTotalPlaytime, getRecentActivity, getSteamOverview, getRecentAchievements };
 
