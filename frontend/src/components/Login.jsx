@@ -10,9 +10,14 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      
       const res = await API.post("/auth/login", formData);
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      const meRes = await API.get("/auth/me");
+      localStorage.setItem("user", JSON.stringify(meRes.data));      
+      
+
       navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
