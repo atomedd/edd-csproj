@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import API from "../api";
-import { AuthContext } from "../context/AuthContext"; 
+import { AuthContext } from "../context/AuthContext";
 
 export default function LinkSteam() {
   const [steamId, setSteamId] = useState("");
@@ -8,13 +8,20 @@ export default function LinkSteam() {
   const { setUser } = useContext(AuthContext);
 
   const handleLink = async () => {
+    // ✅ Validate BEFORE API call
+    if (!steamId || steamId.trim().length < 10) {
+      setMessage("Please enter a valid Steam ID");
+      return;
+    }
+
     try {
+      // ✅ Link the Steam account
       const res = await API.put("/steam/link", { steamId });
       setMessage(res.data.message || "Steam account linked!");
 
+      // ✅ Fetch updated user
       const userRes = await API.get("/auth/me");
       setUser(userRes.data);
-
     } catch (err) {
       setMessage(err.response?.data?.message || "Linking failed.");
     }
@@ -31,13 +38,13 @@ export default function LinkSteam() {
         onChange={(e) => setSteamId(e.target.value)}
       />
 
-      {/*BUTTON*/}
       <button
         onClick={handleLink}
         className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
       >
         Link Steam Account
       </button>
+
       {message && <p className="mt-4 text-green-600">{message}</p>}
     </div>
   );
