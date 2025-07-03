@@ -24,7 +24,7 @@ export default function OwnedGames() {
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-6">Owned Games</h1>
       {games.length === 0 ? (
-        <p>No games found.</p>
+        <p>Loading info...</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {games.map((game) => (
