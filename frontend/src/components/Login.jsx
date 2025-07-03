@@ -8,22 +8,24 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      
-      const res = await API.post("/auth/login", formData);
-      localStorage.setItem("token", res.data.token);
+  e.preventDefault();
+  try {
+    const res = await API.post("/auth/login", formData);
+    const token = res.data.token;
+    
+    localStorage.setItem("token", token);
 
-      const meRes = await API.get("/auth/me");
-      localStorage.setItem("user", JSON.stringify(meRes.data));      
-      
+    const userRes = await API.get("/auth/me", {
+      headers: { Authorization: `Bearer ${token}` }
+    });
 
-      navigate("/dashboard");
-    } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
-    }
-  };
+    localStorage.setItem("user", JSON.stringify(userRes.data));
 
+    navigate("/dashboard");
+  } catch (err) {
+    setError(err.response?.data?.message || "Login failed");
+  }
+};
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-96">
