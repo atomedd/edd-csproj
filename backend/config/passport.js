@@ -23,18 +23,29 @@ passport.use(new SteamStrategy({
 }, async (identifier, profile, done) => {
   try {
     const steamId = profile.id;
+
+    // LOG IN WITH AN EXISTING USER
     let user = await User.findOne({ steamId });
 
-  if (!user) {
-    user = await User.create({
-      username: profile.displayName,
-      steamId,
-      email: '',     
-      password: '',
-      authProvider: 'steam'
-    });
-  }
+    // IF NOT REGISTER A NEW ONE
+    if (!user) {
+      let baseUsername = profile.displayName;
+      let uniqueUsername = baseUsername;
+      let suffix = 1;
 
+      // CHECK FOR DUPLICATES
+      while (await User.findOne({ username: uniqueUsername })) {
+        uniqueUsername = `${baseUsername}_${suffix++}`;
+      }
+
+      user = await User.create({
+        username: uniqueUsername,
+        steamId,
+        email: '',
+        password: '',
+        authProvider: 'steam'
+      });
+    }
 
     return done(null, user);
   } catch (err) {

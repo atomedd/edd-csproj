@@ -6,6 +6,8 @@ import Dashboard from "./components/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import OwnedGames from "./components/OwnedGames";
 import Profile from "./components/Profile";
+import SteamRedirect from "./components/SteamRedirect";
+
 
 function App() {
   
@@ -23,8 +25,9 @@ function App() {
     <div className="min-h-screen bg-gray-100">
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/register" element={<Register/>} />
+          <Route path="/steam-redirect" element={<SteamRedirect />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/games" element={<OwnedGames />} />

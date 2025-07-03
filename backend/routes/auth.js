@@ -32,12 +32,12 @@ router.post('/register', async (req, res) => {
 // LOGIN
 router.post('/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    if (!email || !password) return res.status(400).json({ message: 'Email and password are required' });
+    if (!username || !password) return res.status(400).json({ message: 'user and password are required' });
 
-    const user = await User.findOne({ email });
-    if (!user) return res.status(401).json({ message: 'Please check your password and email and try again.' });
+    const user = await User.findOne({ username });
+    if (!user) return res.status(401).json({ message: 'Please check your user and password and try again.' });
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
@@ -58,16 +58,22 @@ router.get('/steam/return',
   async (req, res) => {
     const user = req.user;
     const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1d' });
-      res.redirect(`http://localhost:3000/?token=${token}`);
+      res.redirect(`http://localhost:3000/steam-redirect?token=${token}`);
   }
 );
 
 // GET STEAM PROFILE
+
 router.get('/me', verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     if (!user) return res.status(404).json({ message: 'User not found' });
-    res.status(200).json(user);
+    res.status(200).json({
+    username: user.username,
+    steamId: user.steamId,
+    xboxId: user.xboxId,
+    psnId: user.psnId,
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
