@@ -37,29 +37,18 @@ export default function Dashboard() {
         ) : !overview ? (
           <>
             <h1 className="text-4xl font-bold mb-2">Welcome, {username || steamId}</h1>
+
             <h2 className="text-xl font-bold mb-6">You haven't linked any accounts yet...</h2>
-            <p className="text-gray-600 mb-4">
-              Link your first account to see your games, playtime and achievements!
-            </p>
+
+            <p className="text-gray-600 mb-4"> Link your first account to see your games, playtime and achievements!</p>
+            
             <div className="flex flex-col items-start gap-4">
-              <a
-                href="http://localhost:3165/api/auth/steam"
-                className="inline-block bg-slate-800 text-white px-4 py-2 rounded hover:bg-slate-950"
-              >
-                Link Steam Account
-              </a>
-              <a
-                href="https://login.live.com/oauth20_authorize.srf?client_id=1f907974-e22b-4810-a9de-d9647380c97e&scope=xboxlive.signin+openid+profile+offline_access&redirect_uri=https%3a%2f%2fwww.xbox.com%2fauth%2fmsa%3faction%3dloggedIn%26locale_hint%3den-CA&response_type=code&state=eyJpZCI6IjAxOTdkMjFiLWJkMzgtN2M4Yi04Yzg0LTJjMjhkYzBiMjNkYyIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicmVkaXJlY3QifX0%3d%7chttps%253A%252F%252Fwww.xbox.com%252Fen-CA%252Flive&response_mode=fragment&nonce=0197d21b-bd38-7d0b-b855-dc2894aee17b&prompt=select_account&code_challenge=CtzQDKWjP3hjbzIyw7iuKa-H4EoLGbP4poZObYZju2o&code_challenge_method=S256&x-client-SKU=msal.js.browser&x-client-Ver=3.20.0"
-                className="block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-              >
-                Link Xbox Account
-              </a>
-              <a
-                href="https://my.account.sony.com/sonyacct/signin/?duid=0000000700090100610c04ca2d57a6142be5fea0fc82b55b04ca116f7f00d4048db090450353dc4e&response_type=code&client_id=e4a62faf-4b87-4fea-8565-caaabb3ac918&scope=web%3Acore&access_type=offline&state=f6fec5e0d74e97a2250a2530eed91dd2269794de056ef6f0c9209cd2e9898703&service_entity=urn%3Aservice-entity%3Apsn&ui=pr&smcid=web%3Apdc&redirect_uri=https%3A%2F%2Fweb.np.playstation.com%2Fapi%2Fsession%2Fv1%2Fsession%3Fredirect_uri%3Dhttps%253A%252F%252Fio.playstation.com%252Fcentral%252Fauth%252Flogin%253Flocale%253Den_CA%2526postSignInURL%253Dhttps%25253A%25252F%25252Fwww.playstation.com%25252Fen-ca%25252Fplaystation-network%25252F%2526cancelURL%253Dhttps%25253A%25252F%25252Fwww.playstation.com%25252Fen-ca%25252Fplaystation-network%25252F"
-                className="inline-block bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-950"
-              >
-                Link Playstation Account
-              </a>
+              <a href="http://localhost:3165/api/auth/steam"
+                className="inline-block bg-slate-800 text-white px-4 py-2 rounded hover:bg-slate-950">Link Steam Account</a>
+              <a href="https://login.live.com/oauth20_authorize.srf?client_id=1f907974-e22b-4810-a9de-d9647380c97e&scope=xboxlive.signin+openid+profile+offline_access&redirect_uri=https%3a%2f%2fwww.xbox.com%2fauth%2fmsa%3faction%3dloggedIn%26locale_hint%3den-CA&response_type=code&state=eyJpZCI6IjAxOTdkMjFiLWJkMzgtN2M4Yi04Yzg0LTJjMjhkYzBiMjNkYyIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicmVkaXJlY3QifX0%3d%7chttps%253A%252F%252Fwww.xbox.com%252Fen-CA%252Flive&response_mode=fragment&nonce=0197d21b-bd38-7d0b-b855-dc2894aee17b&prompt=select_account&code_challenge=CtzQDKWjP3hjbzIyw7iuKa-H4EoLGbP4poZObYZju2o&code_challenge_method=S256&x-client-SKU=msal.js.browser&x-client-Ver=3.20.0"
+                className="block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Link Xbox Account</a>
+              <a href="https://my.account.sony.com/sonyacct/signin/?duid=0000000700090100610c04ca2d57a6142be5fea0fc82b55b04ca116f7f00d4048db090450353dc4e&response_type=code&client_id=e4a62faf-4b87-4fea-8565-caaabb3ac918&scope=web%3Acore&access_type=offline&state=f6fec5e0d74e97a2250a2530eed91dd2269794de056ef6f0c9209cd2e9898703&service_entity=urn%3Aservice-entity%3Apsn&ui=pr&smcid=web%3Apdc&redirect_uri=https%3A%2F%2Fweb.np.playstation.com%2Fapi%2Fsession%2Fv1%2Fsession%3Fredirect_uri%3Dhttps%253A%252F%252Fio.playstation.com%252Fcentral%252Fauth%252Flogin%253Flocale%253Den_CA%2526postSignInURL%253Dhttps%25253A%25252F%25252Fwww.playstation.com%25252Fen-ca%25252Fplaystation-network%25252F%2526cancelURL%253Dhttps%25253A%25252F%25252Fwww.playstation.com%25252Fen-ca%25252Fplaystation-network%25252F"
+                className="inline-block bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-950">Link Playstation Account </a>
             </div>
           </>
         ) : (
