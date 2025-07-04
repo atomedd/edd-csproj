@@ -34,7 +34,7 @@ export default function Login() {
         {/* ERROR MESSAGE */}
         {error && (
           <div className="mb-4 p-2 bg-red-100 text-red-700 rounded">
-            {error}
+            {"Please check your username and password and try again."}
           </div>
         )}
 
