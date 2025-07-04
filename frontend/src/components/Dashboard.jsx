@@ -12,7 +12,6 @@ export default function Dashboard() {
 
   useEffect(() => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
-  console.log("🧪 Stored user:", storedUser);
   if (storedUser?.username) {
     setUsername(storedUser.username);
   }
