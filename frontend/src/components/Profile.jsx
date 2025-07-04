@@ -52,11 +52,11 @@ export default function Profile() {
         <p><strong>Xbox Gamertag:</strong> {user.xboxId || "Not linked"}</p>
         <p><strong>PSN ID:</strong> {user.psnId || "Not linked"}</p>
       </div>
-
+      {/*STEAM CONNECT */}
       <div className="p-6">
         <h1 className="text-2xl font-bold">Your connections</h1>
         <p className="text-gray-600 mb-6">Manage your connected accounts</p>
-
+        
         <ul className="space-y-6">
           <li className="border p-4 rounded shadow-sm">
             <h2 className="text-lg font-semibold mb-2">Steam</h2>
@@ -79,6 +79,7 @@ export default function Profile() {
               <p className="mt-2 text-sm text-blue-700">{message}</p>
             )}
           </li>
+           {/*XBOX CONNECT */}
 
           <li className="border p-4 rounded shadow-sm">
             <h2 className="text-lg font-semibold mb-2">Xbox</h2>
@@ -86,19 +87,20 @@ export default function Profile() {
               By connecting your Xbox account, you acknowledge and agree 
               that your Xbox Gamertag will be publicly visible in the GameHUB API.
             </p>
-            <a href="https://login.live.com/oauth20_authorize.srf?client_id=1f907974-e22b-4810-a9de-d9647380c97e&scope=xboxlive.signin+openid+profile+offline_access&redirect_uri=https%3a%2f%2fwww.xbox.com%2fauth%2fmsa%3faction%3dloggedIn%26locale_hint%3den-CA&response_type=code"
+            <a href="https://www.xbox.com/en-CA/"
               rel="noopener noreferrer"
               className="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
               target="_blank">Connect</a>
           </li>
 
+            {/*PLAYSTATION CONNECT */}
           <li className="border p-4 rounded shadow-sm">
             <h2 className="text-lg font-semibold mb-2">PlayStation</h2>
             <p className="text-gray-600 mb-4">
               By connecting your PlayStation ID, you acknowledge and agree 
               that your PSN ID will be publicly visible in the GameHUB API.
             </p>
-              <a href="https://my.account.sony.com/sonyacct/signin/"
+              <a href="https://www.playstation.com/en-ca/playstation-network/"
               rel="noopener noreferrer"
               className="inline-block bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-950"
               target="_blank"> Connect</a>
