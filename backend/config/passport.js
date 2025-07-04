@@ -26,16 +26,8 @@ passport.use(new SteamStrategy({
     let user = await User.findOne({ steamId });
 
     if (!user) {
-      let baseUsername = profile.displayName;
-      let uniqueUsername = baseUsername;
-      let suffix = 1;
-
-      while (await User.findOne({ username: uniqueUsername })) {
-        uniqueUsername = `${baseUsername}_${suffix++}`;
-      }
-
       user = await User.create({
-        username: uniqueUsername,
+        username: profile.displayName,
         steamId,
         password: '',
         authProvider: 'steam'
